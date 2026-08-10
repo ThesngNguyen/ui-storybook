@@ -1,0 +1,30 @@
+@import './variables.css';
+
+/**
+ * Global reset + base styles.
+ * Import một lần ở entry point của app.
+ *
+ * Consumer:
+ *   import '@your-org/ui-storybook/styles.css';
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--ui-font-family);
+  font-size: var(--ui-font-size);
+  color: var(--ui-color-text);
+  background: var(--ui-color-bg);
+  line-height: 1.5;
+}
