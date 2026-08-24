@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# ui-storybook
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ant Design v6 component library — customized with vibe. Documented in Storybook 10.
 
-## Available Scripts
+## Usage
 
-In the project directory, you can run:
+### Install
 
-### `npm start`
+```bash
+npm install ui-storybook
+# hoặc
+bun add ui-storybook
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Requires peer deps: `react >= 19`, `react-dom >= 19`, `antd >= 6`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Import styles (optional)
 
-### `npm test`
+```js
+import "ui-storybook/styles";
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Theme
 
-### `npm run build`
+```jsx
+import { ThemeProvider, Button } from "ui-storybook";
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+export default function App() {
+	return (
+		<ThemeProvider>
+			<Button type="primary">Hello</Button>
+		</ThemeProvider>
+	);
+}
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Override tokens:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```jsx
+<ThemeProvider
+	theme={{
+		token: { colorPrimary: "#22c55e" },
+		components: { Button: { controlHeight: 44 } },
+	}}
+>
+	<App />
+</ThemeProvider>
+```
 
-### `npm run eject`
+### Plugin
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```js
+import { uiPlugin } from "ui-storybook/plugin";
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Vite**: `plugins: [react(), uiPlugin.vite()]`
+- **Next.js** (`next.config.mjs`):
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```js
+export default uiPlugin.next();
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`uiPlugin.theme` exposes the default antd theme config if you use `ConfigProvider` directly.
 
-## Learn More
+## Development
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+bun install
+bun run dev        # storybook dev server, http://localhost:6006
+bun run build      # bundle package → build/
+bun run build-storybook  # static site → storybook-static/
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Deploy
 
-### Code Splitting
+### Vercel (Storybook docs site)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+`vercel.json` already configured:
 
-### Analyzing the Bundle Size
+```json
+{
+	"buildCommand": "npm run build-storybook",
+	"outputDirectory": "storybook-static"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Push to GitHub, import repo in Vercel — done. Preview URL points at the live Storybook.
 
-### Making a Progressive Web App
+### npm package
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+bun run build
+npm publish
+```
 
-### Advanced Configuration
+`prepublishOnly` rebuilds automatically.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## License
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT

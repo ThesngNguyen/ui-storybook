@@ -5,19 +5,19 @@
 	"license": "MIT",
 	"description": "Ant Design v6 component library — customized with vibe. Documented in Storybook 10.",
 	"type": "module",
-	"main": "./build/index.js",
+	"main": "./build/index.cjs",
 	"module": "./build/index.mjs",
 	"types": "./build/index.d.ts",
 	"exports": {
 		".": {
 			"import": "./build/index.mjs",
-			"require": "./build/index.js",
+			"require": "./build/index.cjs",
 			"types": "./build/index.d.ts"
 		},
 		"./styles": "./build/styles/global.css",
 		"./plugin": {
 			"import": "./build/plugin/index.mjs",
-			"require": "./build/plugin/index.js",
+			"require": "./build/plugin/index.cjs",
 			"types": "./build/plugin/index.d.ts"
 		}
 	},
@@ -40,8 +40,10 @@
 	},
 	"scripts": {
 		"dev": "storybook dev -p 6006",
-		"build": "echo 'TODO: setup bundler (tsup/rollup). Storybook static build below.'",
+		"clean": "rm -rf build",
+		"build": "bun run scripts/build.mjs",
 		"build-storybook": "storybook build",
+		"prepublishOnly": "npm run build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},

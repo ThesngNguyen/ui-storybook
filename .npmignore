@@ -1,0 +1,22 @@
+# Source & tooling — không đưa vào npm package
+node_modules
+src
+public
+.storybook
+storybook-static
+build-storybook
+
+# Logs, env, OS
+*.log
+.env
+.env.local
+.env.*.local
+.DS_Store
+
+# CI / coverage
+coverage
+.vercel
+
+# VCS
+.git
+.gitignore
