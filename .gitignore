@@ -11,6 +11,9 @@
 # production
 /build
 
+# module federation container — deployed to CDN, not committed
+/mf
+
 # misc
 .DS_Store
 .env.local

@@ -15,6 +15,7 @@
 			"types": "./build/index.d.ts"
 		},
 		"./styles": "./build/styles/global.css",
+		"./styles/variables": "./build/styles/variables.css",
 		"./plugin": {
 			"import": "./build/plugin/index.mjs",
 			"require": "./build/plugin/index.cjs",
@@ -40,10 +41,14 @@
 	},
 	"scripts": {
 		"dev": "storybook dev -p 6006",
-		"clean": "rm -rf build",
+		"clean": "rm -rf build mf storybook-static",
 		"build": "bun run scripts/build.mjs",
-		"build-storybook": "storybook build",
-		"prepublishOnly": "npm run build",
+		"build:mf": "cross-env NODE_ENV=production MF_PUBLIC_PATH=auto webpack --config webpack.mf.config.cjs",
+		"build:mf:dev": "webpack --config webpack.mf.config.cjs",
+		"build:all": "bun run build && bun run build:mf",
+		"build-storybook": "storybook build && node scripts/copy-mf.mjs",
+		"build:deploy": "bun run build:mf && bun run build-storybook",
+		"prepublishOnly": "npm run build:all",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
@@ -67,14 +72,23 @@
 		]
 	},
 	"devDependencies": {
+		"@babel/core": "^7",
+		"@babel/preset-env": "^7",
+		"@babel/preset-react": "^7",
+		"@babel/preset-typescript": "^7",
 		"@biomejs/biome": "2.5.7",
 		"@storybook/addon-a11y": "^10.5.3",
 		"@storybook/addon-docs": "^10.5.3",
 		"@storybook/addon-onboarding": "^10.5.3",
 		"@storybook/preset-create-react-app": "^10.5.3",
 		"@storybook/react-webpack5": "^10.5.3",
+		"babel-loader": "^8",
+		"cross-env": "^7",
+		"css-loader": "^6",
 		"eslint-plugin-storybook": "^10.5.3",
 		"prop-types": "^15.8.1",
-		"webpack": "^5.108.4"
+		"style-loader": "^3",
+		"webpack": "^5.108.4",
+		"webpack-cli": "^5"
 	}
 }

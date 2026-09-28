@@ -6,6 +6,13 @@ public
 storybook-static
 build-storybook
 
+# Module Federation container + reference host — deploy artifacts
+mf
+examples
+webpack.mf.config.cjs
+scripts
+docs
+
 # Logs, env, OS
 *.log
 .env
